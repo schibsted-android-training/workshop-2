@@ -3,11 +3,10 @@ package net.infojobs.training2;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
-
-import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,6 +22,14 @@ public class MainActivity extends AppCompatActivity {
                 .into(imageView);
 
         Log.d("IJ", "onCreate!");
+
+        View button = findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO launch activity
+            }
+        });
     }
 
     @Override
