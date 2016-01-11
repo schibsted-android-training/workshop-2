@@ -33,6 +33,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         Log.v("IJ", "onPause");
+        sendPrivateDataToServer();
+    }
+
+    private void sendPrivateDataToServer() {
+        throw new RuntimeException("Banana");
     }
 
     @Override
