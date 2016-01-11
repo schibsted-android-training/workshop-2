@@ -1,6 +1,7 @@
 package net.infojobs.training2;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -29,6 +30,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, SecondaryActivity.class));
+            }
+        });
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String webUrl = "https://en.wikipedia.org/wiki/Banana";
+                Intent webIntent = new Intent(Intent.ACTION_VIEW);
+                webIntent.setData(Uri.parse(webUrl));
+                startActivity(webIntent);
             }
         });
     }
