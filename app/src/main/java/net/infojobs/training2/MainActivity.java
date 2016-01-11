@@ -1,5 +1,6 @@
 package net.infojobs.training2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO launch activity
+                startActivity(new Intent(MainActivity.this, SecondaryActivity.class));
             }
         });
     }
