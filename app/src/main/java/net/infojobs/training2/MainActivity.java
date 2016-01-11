@@ -2,9 +2,9 @@ package net.infojobs.training2;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -14,9 +14,13 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
+import java.io.IOException;
+
 public class MainActivity extends AppCompatActivity {
 
     private ImageView imageView;
+    private File photoFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,24 +42,28 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String webUrl = "https://en.wikipedia.org/wiki/Banana";
-                Intent webIntent = new Intent(Intent.ACTION_VIEW);
-                webIntent.setData(Uri.parse(webUrl));
-                startActivity(webIntent);
-            }
-        });
-
         View newBananaButton = findViewById(R.id.new_banana);
         newBananaButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(cameraIntent, 666);
+                launchCamera();
             }
         });
+    }
+
+    private void launchCamera() {
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        File photoDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+//        File photoDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+
+        try {
+            photoFile = File.createTempFile("banana", "jpg", photoDir);
+            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
+            startActivityForResult(cameraIntent, 1);
+        } catch (IOException e) {
+            Log.e("IJ", "Error", e);
+        }
     }
 
     @Override
@@ -65,8 +73,7 @@ public class MainActivity extends AppCompatActivity {
             String text = data.getStringExtra("text");
             Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
         } else if (requestCode == 666 && resultCode == AppCompatActivity.RESULT_OK) {
-            Bitmap thumbnail = data.getParcelableExtra("data");
-            imageView.setImageBitmap(thumbnail);
+            Picasso.with(this).load(photoFile).into(imageView);
         }
     }
 }
