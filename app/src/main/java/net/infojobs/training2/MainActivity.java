@@ -7,6 +7,8 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -33,7 +35,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         Log.v("IJ", "onPause");
-        sendPrivateDataToServer();
+        try {
+            sendPrivateDataToServer();
+        } catch (Exception e) {
+            Log.e("IJ", "Erró de servidó");
+        }
     }
 
     private void sendPrivateDataToServer() {
