@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             sendPrivateDataToServer();
         } catch (Exception e) {
-            Log.e("IJ", "Erró de servidó");
+            Log.e("IJ", "Erró de servidó", e);
         }
     }
 
