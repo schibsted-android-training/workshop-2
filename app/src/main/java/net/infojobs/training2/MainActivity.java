@@ -2,6 +2,7 @@ package net.infojobs.training2;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -15,14 +16,15 @@ import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ImageView imageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ImageView imageView = (ImageView) findViewById(R.id.image);
+        imageView = (ImageView) findViewById(R.id.image);
 
         Picasso picasso = Picasso.with(this);
-        picasso.setLoggingEnabled(true);
         picasso.load("http://energiaysalud.org/wp-content/uploads/2015/01/benefits-of-eating-banana.jpg")
                 .into(imageView);
 
@@ -51,11 +53,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivity(cameraIntent);
+                startActivityForResult(cameraIntent, 666);
             }
         });
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -63,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode==2 && resultCode == Activity.RESULT_OK) {
             String text = data.getStringExtra("text");
             Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+        } else if (requestCode == 666 && resultCode == AppCompatActivity.RESULT_OK) {
+            Bitmap thumbnail = data.getParcelableExtra("data");
+            imageView.setImageBitmap(thumbnail);
         }
     }
 }
