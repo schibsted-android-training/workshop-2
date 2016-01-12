@@ -21,4 +21,10 @@
         android:layout_height="wrap_content"
         android:text="Moar bananas" />
 
+    <Button
+        android:id="@+id/pyjamas"
+        android:layout_width="wrap_content"
+        android:text="Bananas in pyjamas"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>
