@@ -7,6 +7,9 @@ The intention of this workshop is to go through some basic aspects of building A
   - Launching activities within the application
   - Interacting with external activities from the system
 
+# Companion slides
+[Here!](slides/workshop2.pdf) 😃
+
 # Step by Step
 Every commit in the repo is an small individual step. You can check out the list of [commits](https://github.com/schibsted-android-training/workshop-2/commits/master) to view the detailed process step by step.
 
